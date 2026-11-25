@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -154,7 +154,7 @@
             var buildUrl = "Build";
             var loaderUrl = buildUrl + "/hk.loader.js";
 
-            // UNITY CONFIGURATION + SAVE SYNCHRONIZATION
+            // UNITY CONFIGURATION
 
             var config = {
                 dataUrl: dataUrl,
@@ -165,7 +165,7 @@
                 productName: "Hollow Knight",
                 productVersion: "1.0",
 
-                // Automatic persistent data synchronization
+                // Unity automatic IndexedDB synchronization
                 autoSyncPersistentDataPath: true,
             };
 
@@ -177,10 +177,6 @@
 
             var progressBarFull = document.querySelector(
                 "#unity-progress-bar-full"
-            );
-
-            var fullscreenButton = document.querySelector(
-                "#unity-fullscreen-button"
             );
 
             var mobileWarning = document.querySelector(
@@ -230,14 +226,24 @@
 
                 ).then((unityInstance) => {
 
+                    window.unityInstance = unityInstance;
+
                     loadingText.remove();
                     loadingBar.style.display = "none";
                     canvas.style.display = "block";
 
+                    console.log("Hollow Knight loaded.");
+                    console.log("Unity automatic save synchronization enabled.");
+
                 }).catch((message) => {
+                    console.error("Unity loading error:", message);
                     alert(message);
                 });
 
+            };
+
+            script.onerror = () => {
+                alert("Failed to load Unity loader.");
             };
 
             document.body.appendChild(script);
@@ -247,3 +253,4 @@
 
 </body>
 </html>
+```
